@@ -5,7 +5,6 @@ import WorkoutPage from "./workout/page";
 export default function Home() {
   return (
     <div>
-     <BannerPage></BannerPage>
      <WorkoutPage></WorkoutPage>
      </div>
   );
