@@ -1,6 +1,6 @@
-import BannerPage from "@/components/homepage/Banner";
-import Image from "next/image";
 import WorkoutPage from "./workout/page";
+
+export const instant = false;
 
 export default function Home() {
   return (

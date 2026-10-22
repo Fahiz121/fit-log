@@ -1,6 +1,9 @@
+import PlanButtonPage from "@/components/planandsavedbutton/PlanButton";
+import SavedButton from "@/components/planandsavedbutton/SavedButton";
 import { IWorkout } from "@/types/workout.type";
 import Image from "next/image";
-import { FaClock, FaDumbbell, FaFire, FaStar } from "react-icons/fa";
+
+export const instant = false;
 
 interface IWorkoutDetailsPageProps {
   params: Promise<{
@@ -15,7 +18,7 @@ const getWorkOuts = async () => {
 };
 
 const WorkOutDetailPage = async ({ params }: IWorkoutDetailsPageProps) => {
-  const {id} = await params;
+  const { id } = await params;
   const workoutsData = await getWorkOuts();
   const workout = workoutsData.find(
     (workout: IWorkout) => String(workout.id) === String(id),
@@ -35,19 +38,7 @@ const WorkOutDetailPage = async ({ params }: IWorkoutDetailsPageProps) => {
             />
           </div>
 
-          {/* Workout Details */}
           <div className="flex flex-col justify-center gap-6">
-            <div className="flex flex-wrap gap-2">
-              {workout.muscleGroups.map((muscle,index) => (
-                <span
-                  key={index}
-                  className="rounded-full bg-[#C2F800] px-3 py-1 text-xs font-bold uppercase text-black"
-                >
-                  {muscle}
-                </span>
-              ))}
-            </div>
-
             <div>
               <h1 className="text-4xl font-bold uppercase tracking-wide md:text-5xl">
                 {workout.name}
@@ -57,61 +48,83 @@ const WorkOutDetailPage = async ({ params }: IWorkoutDetailsPageProps) => {
                 {workout.description}
               </p>
             </div>
+            <div className="flex flex-wrap gap-2">
+              {workout.muscleGroups.map((muscle, index) => (
+                <span
+                  key={index}
+                  className="rounded-full bg-[#C2F800] px-3 py-1 text-xs font-bold uppercase text-black"
+                >
+                  {muscle}
+                </span>
+              ))}
+            </div>
 
-            {/* Workout Stats */}
-            <div className="grid grid-cols-3 gap-3">
-              <div className="rounded-xl bg-[#20232B] p-4">
-                <FaClock className="mb-3 text-xl text-[#C2F800]" />
-                <p className="text-xl font-bold">{workout.duration} min</p>
-                <p className="mt-1 text-xs text-gray-400">Duration</p>
-              </div>
+            <div className="rounded-2xl border border-white/10 bg-[#151922] px-5 py-3">
+              <div className="space-y-2">
+                {/* Equipment */}
+                <div className="flex items-center justify-between gap-4">
+                  <span className="flex items-center gap-2 font-bold text-[#9CA3AF]">
+                    EQUIPMENT
+                  </span>
+                  <span className="text-right font-medium text-white">
+                    {workout.equipment}
+                  </span>
+                </div>
 
-              <div className="rounded-xl bg-[#20232B] p-4">
-                <FaFire className="mb-3 text-xl text-orange-500" />
-                <p className="text-xl font-bold">{workout.caloriesBurned}</p>
-                <p className="mt-1 text-xs text-gray-400">Calories</p>
-              </div>
+                <hr className="h-px w-[calc(100%+2.5rem)] -ml-5 border-0 bg-white/10" />
 
-              <div className="rounded-xl bg-[#20232B] p-4">
-                <FaStar className="mb-3 text-xl text-yellow-400" />
-                <p className="text-xl font-bold">{workout.rating}</p>
-                <p className="mt-1 text-xs text-gray-400">Rating</p>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[#9CA3AF] font-bold">DIFFICULTY</span>
+                  <span className="rounded-full bg-[#C2F800]/10 px-3 py-1 text-sm font-medium text-[#C2F800]">
+                    {workout.difficulty}
+                  </span>
+                </div>
+
+                <hr className="h-px w-[calc(100%+2.5rem)] -ml-5 border-0 bg-white/10" />
+
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[#9CA3AF] font-bold">SETS</span>
+                  <span className="font-semibold text-white">
+                    {workout.sets}
+                  </span>
+                </div>
+
+                <hr className="h-px w-[calc(100%+2.5rem)] -ml-5 border-0 bg-white/10" />
+
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[#9CA3AF] font-bold">REPS</span>
+                  <span className="font-semibold text-white">
+                    {workout.reps}
+                  </span>
+                </div>
+
+                <hr className="h-px w-[calc(100%+2.5rem)] -ml-5 border-0 bg-white/10" />
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[#9CA3AF] font-bold">DURATION</span>
+                  <span className="font-semibold text-white">
+                    {workout.duration}
+                  </span>
+                </div>
+
+                <hr className="h-px w-[calc(100%+2.5rem)] -ml-5 border-0 bg-white/10" />
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[#9CA3AF] font-bold">CALORIES</span>
+                  <span className="font-semibold text-white">
+                    {workout.caloriesBurned}
+                  </span>
+                </div>
+                <hr className="h-px w-[calc(100%+2.5rem)] -ml-5 border-0 bg-white/10" />
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[#9CA3AF] font-bold">RATING</span>
+                  <span className="font-semibold text-white">
+                    {workout.rating}
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* Workout Information */}
-            <div className="space-y-4 border-t border-white/10 pt-6">
-              <div className="flex items-center justify-between gap-4">
-                <span className="flex items-center gap-2 text-gray-400">
-                  <FaDumbbell className="text-[#C2F800]" />
-                  Equipment
-                </span>
-                <span className="text-right font-medium">
-                  {workout.equipment}
-                </span>
-              </div>
-
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-gray-400">Difficulty</span>
-                <span className="rounded-full bg-white/10 px-3 py-1 text-sm">
-                  {workout.difficulty}
-                </span>
-              </div>
-
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-gray-400">Sets</span>
-                <span className="font-semibold">{workout.sets}</span>
-              </div>
-
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-gray-400">Reps</span>
-                <span className="font-semibold">{workout.reps}</span>
-              </div>
-            </div>
-
-            {/* Instructions */}
             <div className="border-t border-white/10 pt-6">
-              <h2 className="mb-4 text-xl font-bold">HOW TO PERFORM</h2>
+              <h2 className="mb-4 text-xl font-bold">INSTRUCTIONS</h2>
 
               <ol className="space-y-3">
                 {workout.instructions.map((instruction, index) => (
@@ -126,6 +139,8 @@ const WorkOutDetailPage = async ({ params }: IWorkoutDetailsPageProps) => {
                   </li>
                 ))}
               </ol>
+              <PlanButtonPage workout={workout}></PlanButtonPage>
+              <SavedButton workout={workout}></SavedButton>
             </div>
           </div>
         </div>

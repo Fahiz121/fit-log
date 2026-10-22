@@ -2,7 +2,6 @@ import { IWorkout } from "@/types/workout.type";
 import { Inter, Oswald } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { FaClock, FaFire, FaStar } from "react-icons/fa";
 
 interface IWorkOutCardProps {
